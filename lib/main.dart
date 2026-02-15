@@ -72,7 +72,7 @@ class _LoginPageState extends State<LoginPage> {
       if (isGoogle) {
         await supabase.auth.signInWithOAuth(
           OAuthProvider.google,
-          redirectTo: 'http://localhost:3000/', // Ensure this matches your running port
+          redirectTo: 'https://ai-talent-scout.onrender.com', // Ensure this matches your running port
         );
       } else {
         if (_isSignUp) {
