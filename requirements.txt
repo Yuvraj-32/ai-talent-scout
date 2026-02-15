@@ -6,8 +6,10 @@ spacy==3.7.2
 supabase==2.3.4
 python-dotenv==1.0.0
 gunicorn
+httpx>=0.27.0
 # For spaCy language model, run after installing:
 # python -m spacy download en_core_web_sm
 # Or for better results:
 # python -m spacy download en_core_web_md
+
 
