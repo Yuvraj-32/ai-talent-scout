@@ -1,18 +1,10 @@
-# Backend Requirements for Resume Parser with Supabase
 flask
+flask-cors
 gunicorn
 spacy
 pdfminer.six
 python-multipart
 python-dotenv
-# Force Supabase 2.5+ which supports the new internet protocols
+requests
+# Force newer Supabase to fix proxy error
 supabase>=2.5.0
-
-# For spaCy language model, run after installing:
-# python -m spacy download en_core_web_sm
-# Or for better results:
-# python -m spacy download en_core_web_md
-
-
-
-
