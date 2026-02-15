@@ -229,7 +229,7 @@ class _ProfessionalAIScoutState extends State<ProfessionalAIScout> with SingleTi
 
       // Use localhost for Web. If Android Emulator, use 10.0.2.2
       // NEW (Correct)
-      var request = http.MultipartRequest('POST', Uri.parse('https://ai-talent-scout.onrender.com'));
+      var request = http.MultipartRequest('POST', Uri.parse('https://ai-talent-scout.onrender.com/match'));
       String finalJD = _tabController.index == 0 ? jdController.text : "${roleController.text} ${skillsController.text}";
 
       request.fields['job_desc'] = finalJD;
