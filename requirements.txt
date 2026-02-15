@@ -5,8 +5,9 @@ pdfplumber==0.11.0
 spacy==3.7.2
 supabase==2.3.4
 python-dotenv==1.0.0
-
+gunicorn
 # For spaCy language model, run after installing:
 # python -m spacy download en_core_web_sm
 # Or for better results:
 # python -m spacy download en_core_web_md
+
