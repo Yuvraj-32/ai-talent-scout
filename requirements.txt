@@ -3,8 +3,8 @@ flask-cors
 gunicorn
 spacy
 pdfminer.six
+pdfplumber
 python-multipart
 python-dotenv
 requests
-# Force newer Supabase to fix proxy error
 supabase>=2.5.0
