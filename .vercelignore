@@ -1,0 +1,7 @@
+# Ignore the backend files so Vercel doesn't get confused
+*.py
+requirements.txt
+venv/
+__pycache__/
+Procfile
+gunicorn.conf.py
