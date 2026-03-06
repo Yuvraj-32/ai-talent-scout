@@ -61,6 +61,26 @@ class _LoginPageState extends State<LoginPage> {
   bool _isSignUp = false;
 
   Future<void> _handleAuth(bool isGoogle) async {
+    if (!isGoogle) {
+      // Validate email format
+      final email = _emailController.text.trim();
+      if (email.isEmpty || !RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email)) {
+        _msg("Please enter a valid email address", isError: true);
+        return;
+      }
+      // Validate password
+      final password = _passwordController.text.trim();
+      if (password.isEmpty || password.length < 6) {
+        _msg("Password must be at least 6 characters", isError: true);
+        return;
+      }
+      // Validate name for signup
+      if (_isSignUp && _nameController.text.trim().isEmpty) {
+        _msg("Please enter your name", isError: true);
+        return;
+      }
+    }
+
     setState(() => _isLoading = true);
     try {
       if (isGoogle) {
@@ -75,7 +95,6 @@ class _LoginPageState extends State<LoginPage> {
             password: _passwordController.text.trim(),
             data: {'display_name': _nameController.text.trim()},
           );
-          // If session is null, email confirmation is enabled in Supabase dashboard
           if (res.session != null) {
             if (mounted) _msg("Account created! You are now logged in.");
           } else {
@@ -89,7 +108,20 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     } catch (e) {
-      if (mounted) _msg("Error: $e", isError: true);
+      String errMsg = e.toString();
+      // Show user-friendly error messages
+      if (errMsg.contains('Invalid login credentials')) {
+        errMsg = "Incorrect email or password.";
+      } else if (errMsg.contains('already registered')) {
+        errMsg = "This email is already registered. Try logging in.";
+      } else if (errMsg.contains('validation_failed')) {
+        errMsg = "Invalid email format. Please check and try again.";
+      } else if (errMsg.contains('rate limit')) {
+        errMsg = "Too many attempts. Please wait a moment.";
+      } else {
+        errMsg = "Something went wrong. Please try again.";
+      }
+      if (mounted) _msg(errMsg, isError: true);
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
