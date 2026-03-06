@@ -1,9 +1,9 @@
 // Supabase Configuration
 class SupabaseConfig {
-  // TODO: Replace with your actual Supabase credentials
-  static const String supabaseUrl = 'YOUR_SUPABASE_URL_HERE'; // e.g., 'https://xxxxx.supabase.co'
-  static const String supabaseAnonKey = 'YOUR_SUPABASE_ANON_KEY_HERE'; // Your anon/public key
-  
+  static const String supabaseUrl = 'https://zrodayjdpcqiilnxerix.supabase.co';
+  static const String supabaseAnonKey =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpyb2RheWpkcGNxaWlsbnhlcml4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5ODg5ODYsImV4cCI6MjA4NjU2NDk4Nn0.4GQZV2vZHqMBFsB4bYzEu2GO2bUwnjRYdboCQXXfMBY';
+
   // Storage bucket name for resumes
   static const String resumesBucket = 'resumes';
 }

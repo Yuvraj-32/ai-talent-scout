@@ -4,15 +4,9 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:file_picker/file_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'supabase_config.dart';
 
-// --- 1. CONFIGURATION ---
-class SupabaseConfig {
-  // Replace with your actual project URL
-  static const String supabaseUrl = 'https://zrodayjdpcqiilnxerix.supabase.co';
-
-  // Replace with your actual Anon Key
-  static const String supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpyb2RheWpkcGNxaWlsbnhlcml4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzA5ODg5ODYsImV4cCI6MjA4NjU2NDk4Nn0.4GQZV2vZHqMBFsB4bYzEu2GO2bUwnjRYdboCQXXfMBY';
-}
+// --- 1. CONFIGURATION (imported from supabase_config.dart) ---
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,16 +66,21 @@ class _LoginPageState extends State<LoginPage> {
       if (isGoogle) {
         await supabase.auth.signInWithOAuth(
           OAuthProvider.google,
-          redirectTo: 'https://ai-talent-scout.onrender.com', // Ensure this matches your running port
+          redirectTo: 'https://ai-talent-scout-seven.vercel.app',
         );
       } else {
         if (_isSignUp) {
-          await supabase.auth.signUp(
+          final res = await supabase.auth.signUp(
             email: _emailController.text.trim(),
             password: _passwordController.text.trim(),
             data: {'display_name': _nameController.text.trim()},
           );
-          if (mounted) _msg("Account created! Check email.");
+          // If session is null, email confirmation is enabled in Supabase dashboard
+          if (res.session != null) {
+            if (mounted) _msg("Account created! You are now logged in.");
+          } else {
+            if (mounted) _msg("Account created! You can now log in.");
+          }
         } else {
           await supabase.auth.signInWithPassword(
             email: _emailController.text.trim(),
